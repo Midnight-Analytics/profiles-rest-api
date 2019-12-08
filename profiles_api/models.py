@@ -12,8 +12,8 @@ class UserProfileManager(BaseUserManager):
         if not email:
             raise ValueError('Users must have an email address')
 
-        email = self.normaliza_email(email)
-        name = self.model(email=email, name=name)
+        email = self.normalize_email(email)
+        user = self.model(email=email, name=name)
 
         user.set_password(password)
         user.save(using=self._db)
@@ -24,7 +24,7 @@ class UserProfileManager(BaseUserManager):
         """Crete and save a new superuser with the given details"""
         user = self.create_user(email, name, password)
 
-        user.is_superiser = True
+        user.is_superuser = True
         user.is_staff = True
         user.save(using=self._db)
 
